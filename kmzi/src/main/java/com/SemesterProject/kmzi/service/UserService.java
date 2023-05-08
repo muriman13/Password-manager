@@ -9,8 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.SemesterProject.kmzi.repository.UserRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @Service
@@ -27,6 +29,26 @@ public class UserService {
         user.setUsername("admin");
         user.setPassword(passwordEncoder.encode("password"));
         user.setRoles(List.of(new Role(), new Role()));
+        userRepository.save(user);
+    }
+
+    public Role findRoleByName(String roleUser) {
+        return userRepository.findByRoleName(roleUser).get().getRoles().get(0);
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User findByEmail(String email) {
+        if(userRepository.findByEmail(email).isEmpty()){
+            return null;
+        } else {
+            return userRepository.findByEmail(email).get();
+        }
+    }
+
+    public void save(User user) {
         userRepository.save(user);
     }
 }
