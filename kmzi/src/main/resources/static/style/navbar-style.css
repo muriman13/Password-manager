@@ -1,0 +1,22 @@
+  .navbar-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.navbar-menu li {
+    display: inline-block;
+}
+
+.navbar-menu li a {
+    display: block;
+    padding: 10px;
+    padding-right: 30px;
+    text-decoration: none;
+    color: #333;
+}
+
+.navbar-menu li a:hover {
+    background-color: #ddd;
+}

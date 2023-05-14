@@ -12,11 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.Arrays;
 
-@Controller
+@RestController
 public class RegistrationController {
 
     @Autowired
@@ -50,13 +51,10 @@ public class RegistrationController {
         String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
         // Add the user role by default
-        Role userRole = new Role();
-        userRole.setName("ROLE_USER");
-        roleService.save(userRole);
+        String roleName = "ROLE_USER";
+        Role userRole = roleService.findByName(roleName);
         user.setRoles(Arrays.asList(userRole));
-
         userService.save(user);
-
         return "redirect:/login?success";
     }
 }

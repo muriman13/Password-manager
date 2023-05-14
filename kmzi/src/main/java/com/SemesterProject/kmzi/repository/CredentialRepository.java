@@ -11,4 +11,7 @@ public interface CredentialRepository extends JpaRepository<Credential, Long> {
     @Override
     @Transactional
     <S extends Credential> S save(S entity);
+
+    List<Credential> findAllByUserId(Integer userId);
+
 }

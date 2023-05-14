@@ -15,10 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class HomeController {
     @Autowired
     private MessageRepository messageRepository;
@@ -36,7 +37,6 @@ public class HomeController {
     }
     @GetMapping("/create-credentials")
     public String createCredentials(Model model){
-        passwordService.savePasswordHalf();
         String generatedPassword = passwordService.createRulesForPassword();
         model.addAttribute("credential", new Credential());
         model.addAttribute("password", generatedPassword);
@@ -49,7 +49,7 @@ public class HomeController {
             model.addAttribute("user_id", user.getId());
 
         }
-        List<Credential> credentials = credentialService.getAllCredentials();
+        List<Credential> credentials = credentialService.getAllCredentials(Integer.valueOf(model.getAttribute("user_id").toString()));
         model.addAttribute("credentialList", credentials);
         return "create-password";
     }

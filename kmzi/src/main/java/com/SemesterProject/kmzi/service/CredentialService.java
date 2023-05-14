@@ -13,7 +13,7 @@ public class CredentialService {
     @Autowired
     CredentialRepository credentialRepository;
 
-    public List<Credential> getAllCredentials(){
-        return credentialRepository.findAll();
+    public List<Credential> getAllCredentials(Integer user_id){
+        return credentialRepository.findAllByUserId(user_id);
     }
 }
