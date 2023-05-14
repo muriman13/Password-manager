@@ -34,26 +34,21 @@ public class RegistrationController {
     @PostMapping("/register")
     public String processRegistrationForm(@ModelAttribute("user") @Valid User user,
                                           BindingResult result, Model model) {
-
         if (result.hasErrors()) {
             return "registration";
         }
-
         // Check if username or email already exists in database
         if (userService.findByUsername(user.getUsername()) != null) {
             model.addAttribute("usernameError", "Username already exists");
             return "registration";
         }
-
         if (userService.findByEmail(user.getEmail()) != null) {
             model.addAttribute("emailError", "Email already exists");
             return "registration";
         }
-
         // Hash the password before saving it to the database
         String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encodedPassword);
-
         // Add the user role by default
         Role userRole = new Role();
         userRole.setName("ROLE_USER");

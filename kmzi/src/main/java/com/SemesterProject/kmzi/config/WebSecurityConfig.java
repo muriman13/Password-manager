@@ -50,12 +50,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/webjars/**","/assets/**").permitAll()
                 .antMatchers("/", "/register").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .successForwardUrl("/home")
                 .defaultSuccessUrl("/home")
-                .failureUrl("/login?error")
+                .failureUrl("/login")
                 .permitAll()
                 .and()
                 .logout()
@@ -79,4 +81,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         tokenRepositoryImpl.setDataSource(dataSource);
         return tokenRepositoryImpl;
     }
+
 }

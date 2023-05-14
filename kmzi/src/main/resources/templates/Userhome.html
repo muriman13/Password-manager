@@ -1,41 +1,44 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorator="layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>User Home</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
 </head>
 <body>
-<div layout:fragment="content">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Password Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Saved Passwords</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Create Password</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Share Password</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    <h1>Welcome to Password Manager</h1>
+    <p>This is your home page</p>
     <p>
         Welcome <span sec:authentication="principal.username">User</span>
     </p>
-    <p>
-        <a th:href="@{/logout}">Logout</a>
-    </p>
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        <h3>You will see this only if you are ADMIN</h3>
-        <p>
-            <a th:href="@{/admin/home}">Admin Home</a>
-        </p>
-    </div>
-    <h3>Form with CSRF Token</h3>
-    <form th:action="@{/messages}" method="post">
-        <textarea name="content" cols="50" rows="5"></textarea>
-        <br>
-        <input type="submit" value="Submit" />
-    </form>
-    <div>
-        <br>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Messages
-            </div>
-            <p th:each="msg: ${msgs}" th:text="${msg.content}"></p>
-        </div>
-    </div>
 </div>
+
+<script th:src="@{/scripts/bootstrap.min.js}"></script>
 </body>
 </html>

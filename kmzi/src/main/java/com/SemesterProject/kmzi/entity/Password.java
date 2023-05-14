@@ -1,64 +1,38 @@
 package com.SemesterProject.kmzi.entity;
 
-import javax.persistence.*;
-import java.time.LocalDate;
 
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+import java.util.UUID;
+
+@Table("password")
 public class Password {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CredentialType type;
+    @PrimaryKey
+    private UUID id;
 
-    @Column(nullable = false)
-    private LocalDate expirationDate;
+    @Column("hash")
+    private String hash;
 
-    @Column(nullable = false)
-    private boolean share;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public CredentialType getType() {
-        return type;
+    public String getHash() {
+        return hash;
     }
 
-    public void setType(CredentialType type) {
-        this.type = type;
-    }
-
-    public LocalDate getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public boolean isShare() {
-        return share;
-    }
-
-    public void setShare(boolean share) {
-        this.share = share;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
 }
+
+
+
+
